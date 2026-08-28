@@ -1,0 +1,25 @@
+{
+  "name": "gtx-rush",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GTX Rush — Play. Compete. Rise. ⚡",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+    "db:migrate": "pnpm --filter @gtx-rush/api db:migrate",
+    "db:generate": "pnpm --filter @gtx-rush/api db:generate",
+    "db:seed": "pnpm --filter @gtx-rush/api db:seed"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

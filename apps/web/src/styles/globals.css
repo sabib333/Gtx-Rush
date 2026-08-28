@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   GTX Rush — Global Styles
+   ============================================================ */
+
+@layer base {
+  /* Reset tap highlight for Telegram Mini App */
+  * {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+  }
+
+  html {
+    @apply antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-surface-base text-txt-primary font-body;
+    overscroll-behavior: none;
+    min-height: 100dvh;
+  }
+
+  /* Remove default focus outline, replace with custom */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-500;
+  }
+
+  /* Smooth scrolling but respect reduced motion */
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Custom scrollbar for the app */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-border rounded-pill;
+  }
+
+  /* Prevent pull-to-refresh on mobile */
+  body {
+    overscroll-behavior-y: contain;
+  }
+}
+
+/* ============================================================
+   Utility Classes
+   ============================================================ */
+
+@layer components {
+  /* Page layout container */
+  .page-container {
+    @apply max-w-lg mx-auto px-4 py-4 pb-24;
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+
+  /* Section heading */
+  .section-heading {
+    @apply text-h3 font-display text-txt-primary mb-3 flex items-center gap-2;
+  }
+
+  /* Card base style */
+  .card {
+    @apply rounded-2xl bg-surface-raised border border-surface-border
+           transition-all duration-normal ease-out-expo;
+  }
+
+  .card-interactive {
+    @apply card cursor-pointer active:scale-[0.98] hover:border-accent-500/30;
+  }
+
+  .card-interactive:active {
+    @apply shadow-glow-sm;
+  }
+
+  /* Glass surface effect */
+  .glass {
+    @apply bg-surface-raised/80 backdrop-blur-xl border border-surface-border/50;
+  }
+
+  /* Accent gradient button base */
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-btn text-white
+           bg-gradient-brand shadow-glow-sm
+           active:scale-[0.97] transition-all duration-fast
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-xl font-btn text-txt-primary
+           bg-surface-raised border border-surface-border
+           active:scale-[0.97] transition-all duration-fast
+           hover:border-accent-500/30;
+  }
+
+  .btn-ghost {
+    @apply px-4 py-2 rounded-lg font-btn-sm text-txt-secondary
+           hover:text-txt-primary hover:bg-surface-hover
+           active:scale-[0.97] transition-all duration-fast;
+  }
+
+  .btn-danger {
+    @apply px-6 py-3 rounded-xl font-btn text-white
+           bg-danger-500 shadow-glow-red
+           active:scale-[0.97] transition-all duration-fast;
+  }
+
+  /* Score display styling */
+  .score-display {
+    @apply font-score text-score-xl text-white tabular-nums tracking-tight;
+    text-shadow: 0 0 20px rgba(51, 102, 255, 0.3);
+  }
+
+  .rank-display {
+    @apply font-score text-rank text-accent-400 tabular-nums;
+  }
+
+  /* Shimmer loading effect */
+  .shimmer {
+    @apply bg-gradient-to-r from-surface-raised via-surface-overlay to-surface-raised;
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Glow border effect */
+  .glow-border {
+    @apply border border-accent-500/30 shadow-glow;
+  }
+
+  /* Game color accents */
+  .game-reaction { @apply text-game-reaction; }
+  .game-tap { @apply text-game-tap; }
+  .game-quiz { @apply text-game-quiz; }
+
+  .bg-game-reaction { @apply bg-game-reaction/15; }
+  .bg-game-tap { @apply bg-game-tap/15; }
+  .bg-game-quiz { @apply bg-game-quiz/15; }
+
+  /* Tab system */
+  .tab-active {
+    @apply bg-accent-500 text-white shadow-glow-sm;
+  }
+
+  .tab-inactive {
+    @apply bg-surface-raised text-txt-secondary hover:text-txt-primary;
+  }
+}
+
+/* ============================================================
+   Accessibility: Focus-visible for keyboard navigation
+   ============================================================ */
+@layer base {
+  button:focus-visible,
+  a:focus-visible,
+  [role="button"]:focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-400 rounded-lg;
+  }
+}

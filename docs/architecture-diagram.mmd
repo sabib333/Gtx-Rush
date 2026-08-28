@@ -1,0 +1,74 @@
+graph TB
+    subgraph Client["Client Layer"]
+        TG["Telegram Client"]
+        WebApp["React + Vite WebApp"]
+        Phaser["Phaser 3 Games"]
+        AdminWeb["Admin Dashboard"]
+    end
+
+    subgraph API["API Layer"]
+        Fastify["Fastify Server"]
+        Auth["Auth Plugin"]
+        RateLimit["Rate Limiter"]
+        Validation["Request Validation"]
+    end
+
+    subgraph Services["Business Logic"]
+        GameSvc["Game Service"]
+        ScoreSvc["Score Validation"]
+        LeaderboardSvc["Leaderboard Service"]
+        ProgressionSvc["XP/Level Service"]
+        ChallengeSvc["Challenge Service"]
+        ReferralSvc["Referral Service"]
+        AntiCheat["Anti-Cheat Engine"]
+        AnalyticsSvc["Analytics Service"]
+        MonetizationSvc["Monetization Service"]
+    end
+
+    subgraph Data["Data Layer"]
+        PG[("PostgreSQL")]
+        Redis[("Redis")]
+    end
+
+    subgraph External["External Services"]
+        TGAPI["Telegram Bot API"]
+        TGStars["Telegram Stars"]
+        FutureAd["Ad Provider"]
+        FutureAnalytics["Analytics Provider"]
+    end
+
+    TG -->|"Mini App"| WebApp
+    TG -->|"Bot Commands"| TGAPI
+    TGAPI --> Fastify
+    WebApp -->|"REST API"| Fastify
+    AdminWeb -->|"Admin API"| Fastify
+    WebApp --> Phaser
+
+    Fastify --> Auth
+    Fastify --> RateLimit
+    Fastify --> Validation
+
+    Auth --> GameSvc
+    Auth --> LeaderboardSvc
+    Auth --> ProgressionSvc
+    Auth --> ChallengeSvc
+    Auth --> ReferralSvc
+    Auth --> MonetizationSvc
+    Auth --> AnalyticsSvc
+
+    GameSvc --> ScoreSvc
+    ScoreSvc --> AntiCheat
+
+    GameSvc --> PG
+    LeaderboardSvc --> Redis
+    LeaderboardSvc --> PG
+    ProgressionSvc --> PG
+    ChallengeSvc --> PG
+    ReferralSvc --> PG
+    AntiCheat --> PG
+    AnalyticsSvc --> PG
+    MonetizationSvc --> PG
+    MonetizationSvc --> TGStars
+
+    AnalyticsSvc -.->|"Future"| FutureAnalytics
+    MonetizationSvc -.->|"Future"| FutureAd
